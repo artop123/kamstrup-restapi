@@ -1,0 +1,19 @@
+services:
+  restapi:
+    build: .
+    container_name: kamstrup_restapi
+    restart: unless-stopped
+    devices:
+      - "/dev/ttyUSB1:/dev/ttyUSB1"
+    group_add:
+      - dialout
+    ports:
+      - 5000:8080
+    environment:
+      - MBUS_PORT=/dev/ttyUSB1
+      - MBUS_ADDRESS=0
+      - MBUS_BAUD=9600
+      - MBUS_PARITY=E
+      - MBUS_BYTES=8
+      - MBUS_STOP=1
+      - MBUS_TIMEOUT=1.0
