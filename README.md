@@ -11,7 +11,9 @@ This app reads data from a Kamstrup Multical energy meter using Modbus and expos
 
 ## Docker Compose
 
-The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number. The other settings should work without editing.
+The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number. Use `ls /dev/ttyUSB*` on the host to find the correct device path. 
+
+The other settings should work without editing.
 
 ```yaml
 services:
