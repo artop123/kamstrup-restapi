@@ -1,6 +1,6 @@
 ﻿# Kamstrup Multical Modbus REST API
 
-This app reads data from a Kamstrup Multical energy meter using Modbus and exposes it via a REST API.
+This application reads data from a Kamstrup Multical energy meter using Modbus and exposes it via a REST API.
 
 ![Kamstrup Multical](assets/kamstrup.jpg)
 
@@ -11,9 +11,10 @@ This app reads data from a Kamstrup Multical energy meter using Modbus and expos
 
 ## Docker Compose
 
-The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number. Use `ls /dev/ttyUSB*` on the host to find the correct device path. 
-
-The other settings should work without editing.
+Create `docker-compose.yml`:
+- Use `ls /dev/ttyUSB*` on the host to find the correct device path
+- The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number
+- The other settings should work without editing
 
 ```yaml
 services:
@@ -34,16 +35,18 @@ services:
       - TZ=Europe/Helsinki
 ```
 
-Edit the environment variables as needed and start the container:
+Start the container
 
 ```bash
 docker compose up -d
+```
 
-# Verify the results 
+Verify the results 
+```bash
 curl http://localhost:5000
 ```
 
-Expected output:
+Example output:
 ```json
 {
   "energy_wh": 1986000,
@@ -63,9 +66,9 @@ Expected output:
 }
 ```
 
-## Build and Run Locally
+## Build Locally
 
-You can build and run the Docker image locally with the following commands:
+You can build the Docker image locally with the following commands:
 
 ```bash
 git clone https://github.com/artop123/kamstrup-restapi.git
