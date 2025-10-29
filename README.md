@@ -2,6 +2,11 @@
 
 This application reads data from a Kamstrup Multical energy meter using Modbus and exposes it via a REST API.
 
+<p align="left">
+<img src="https://github.com/artop123/kamstrup-restapi/actions/workflows/ci.yml/badge.svg" alt="CI tests">
+<img src="https://github.com/artop123/kamstrup-restapi/actions/workflows/publish.yml/badge.svg" alt="Docker publish">
+</p>
+
 ![Kamstrup Multical](assets/kamstrup.jpg)
 
 ## Requirements
