@@ -43,8 +43,8 @@ curl http://localhost:5000
 Expected output:
 ```json
 {
-  "energy_kwh": 1986.0,
-  "energy_kwh_2": 0.0,
+  "energy_wh": 1986000,
+  "energy_wh_2": 0,
   "fabrication_no": 0,
   "flow_temperature_c": 73.03,
   "manufacturer_spec": 0,
@@ -86,7 +86,7 @@ rest:
         device_class: energy
         unit_of_measurement: "MWh"
         icon: mdi:radiator
-        value_template: "{{ value_json['energy_kwh'] / 1000 }}"
+        value_template: "{{ value_json['energy_wh'] / 1000 / 1000 }}"
 
       - name: "kamstrup_temp_in"
         unique_id: "kamstrup_temp_in"
