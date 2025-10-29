@@ -31,6 +31,7 @@ services:
       - MBUS_BYTES=8
       - MBUS_STOP=1
       - MBUS_TIMEOUT=1.0
+      - TZ=Europe/Helsinki
 ```
 
 Edit the environment variables as needed and start the container:
@@ -89,6 +90,8 @@ rest:
         unit_of_measurement: "MWh"
         icon: mdi:radiator
         value_template: "{{ value_json['energy_wh'] / 1000 / 1000 }}"
+        json_attributes:
+          - timestamp
 
       - name: "kamstrup_temp_in"
         unique_id: "kamstrup_temp_in"
@@ -97,6 +100,8 @@ rest:
         unit_of_measurement: "°C"
         icon: mdi:thermometer
         value_template: "{{ value_json['flow_temperature_c'] }}"
+        json_attributes:
+          - timestamp
 
       - name: "kamstrup_temp_out"
         unique_id: "kamstrup_temp_out"
@@ -105,6 +110,8 @@ rest:
         unit_of_measurement: "°C"
         icon: mdi:thermometer
         value_template: "{{ value_json['return_temperature_c'] }}"
+        json_attributes:
+          - timestamp
 
       - name: "kamstrup_temp_difference"
         unique_id: "kamstrup_temp_difference"
@@ -113,4 +120,6 @@ rest:
         unit_of_measurement: "°C"
         icon: mdi:thermometer-chevron-up
         value_template: "{{ value_json['temperature_difference_k'] }}"
+        json_attributes:
+          - timestamp
 ```

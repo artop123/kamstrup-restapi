@@ -14,3 +14,4 @@ services:
       - MBUS_BYTES=8
       - MBUS_STOP=1
       - MBUS_TIMEOUT=1.0
+      - TZ=Europe/Helsinki
