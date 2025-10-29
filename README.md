@@ -57,6 +57,7 @@ Expected output:
   "power_w": 24300,
   "return_temperature_c": 33.82,
   "temperature_difference_k": 39.21,
+  "timestamp":"2025-10-29T07:00:00.000000",
   "volume_flow_m3_h": 0,
   "volume_m3": 0
 }
