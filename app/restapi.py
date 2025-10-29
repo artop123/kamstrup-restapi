@@ -1,3 +1,4 @@
+import datetime
 import os
 from flask import Flask, jsonify
 from kamstrup_modbus import KamstrupMBusClient
@@ -27,6 +28,9 @@ app = Flask(__name__)
 def get_values():
     try:
         data = client.read_simple()
+
+        data["timestamp"] = datetime.datetime.now().isoformat()
+
         return jsonify(data), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 503

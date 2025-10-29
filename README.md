@@ -11,7 +11,9 @@ This app reads data from a Kamstrup Multical energy meter using Modbus and expos
 
 ## Docker Compose
 
-The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number. The other settings should work without editing.
+The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number. Use `ls /dev/ttyUSB*` on the host to find the correct device path. 
+
+The other settings should work without editing.
 
 ```yaml
 services:
@@ -29,6 +31,7 @@ services:
       - MBUS_BYTES=8
       - MBUS_STOP=1
       - MBUS_TIMEOUT=1.0
+      - TZ=Europe/Helsinki
 ```
 
 Edit the environment variables as needed and start the container:
@@ -54,6 +57,7 @@ Expected output:
   "power_w": 24300,
   "return_temperature_c": 33.82,
   "temperature_difference_k": 39.21,
+  "timestamp":"2025-10-29T07:00:00.000000",
   "volume_flow_m3_h": 0,
   "volume_m3": 0
 }
@@ -87,6 +91,8 @@ rest:
         unit_of_measurement: "MWh"
         icon: mdi:radiator
         value_template: "{{ value_json['energy_wh'] / 1000 / 1000 }}"
+        json_attributes:
+          - timestamp
 
       - name: "kamstrup_temp_in"
         unique_id: "kamstrup_temp_in"
@@ -95,6 +101,8 @@ rest:
         unit_of_measurement: "°C"
         icon: mdi:thermometer
         value_template: "{{ value_json['flow_temperature_c'] }}"
+        json_attributes:
+          - timestamp
 
       - name: "kamstrup_temp_out"
         unique_id: "kamstrup_temp_out"
@@ -103,6 +111,8 @@ rest:
         unit_of_measurement: "°C"
         icon: mdi:thermometer
         value_template: "{{ value_json['return_temperature_c'] }}"
+        json_attributes:
+          - timestamp
 
       - name: "kamstrup_temp_difference"
         unique_id: "kamstrup_temp_difference"
@@ -111,4 +121,6 @@ rest:
         unit_of_measurement: "°C"
         icon: mdi:thermometer-chevron-up
         value_template: "{{ value_json['temperature_difference_k'] }}"
+        json_attributes:
+          - timestamp
 ```
