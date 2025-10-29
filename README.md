@@ -1,6 +1,6 @@
 ﻿# Kamstrup Multical Modbus REST API
 
-This project reads data from a Kamstrup Multical energy meter using Modbus and exposes it via a REST API.
+This app reads data from a Kamstrup Multical energy meter using Modbus and exposes it via a REST API.
 
 ![Kamstrup Multical](assets/kamstrup.jpg)
 
@@ -11,7 +11,7 @@ This project reads data from a Kamstrup Multical energy meter using Modbus and e
 
 ## Docker Compose
 
-The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number.
+The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number. The other settings should work without editing.
 
 ```yaml
 services:
@@ -19,13 +19,10 @@ services:
     image: artop/kamstrup-restapi:latest
     restart: unless-stopped
     devices:
-      - "/dev/ttyUSB1:/dev/ttyUSB1" # map the USB device
-    group_add:
-      - dialout                     # grant access to USB device
+      - "/dev/ttyUSB1:/dev/ttyUSB0" # map the USB device to USB0
     ports:
       - 5000:8080
     environment:
-      - MBUS_PORT=/dev/ttyUSB1
       - MBUS_ADDRESS=0
       - MBUS_BAUD=9600
       - MBUS_PARITY=E

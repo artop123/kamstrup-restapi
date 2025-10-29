@@ -2,7 +2,7 @@ import os
 from flask import Flask, jsonify
 from kamstrup_modbus import KamstrupMBusClient
 
-PORT = os.getenv("MBUS_PORT", "")
+PORT = os.getenv("MBUS_PORT", "/dev/ttyUSB0")
 ADDRESS = int(os.getenv("MBUS_ADDRESS", 0))
 BAUD = int(os.getenv("MBUS_BAUD", 9600))
 PARITY = os.getenv("MBUS_PARITY", "E")
