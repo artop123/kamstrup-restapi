@@ -1,0 +1,3 @@
+pytest
+pymeterbus
+pyserial
