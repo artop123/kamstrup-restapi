@@ -26,7 +26,7 @@ app = Flask(__name__)
 @app.route("/")
 def get_values():
     try:
-        data = client.read_simple(convert_energy_to_kwh=True)
+        data = client.read_simple()
         return jsonify(data), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 503
