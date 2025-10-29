@@ -63,7 +63,9 @@ class KamstrupMBusClient:
     @staticmethod
     def _norm(s: str) -> str:
         # 'VIFUnit.ENERGY_WH' -> 'energy_wh'
-        return re.sub(r"[^a-z0-9_]+", "_", KamstrupMBusClient._last_part(s).lower())
+        last = KamstrupMBusClient._last_part(s)
+        last = last.lower()
+        return re.sub(r"[^a-z0-9_]+", "_", last)
 
     @staticmethod
     def _unit_suffix(unit: str) -> str:
@@ -72,8 +74,12 @@ class KamstrupMBusClient:
 
     @staticmethod
     def _merge_unit(key_base: str, unit_suffix: str) -> str:
+        if not key_base:
+            return None
+        
         if not unit_suffix or key_base.endswith(unit_suffix):
             return key_base
+        
         return f"{key_base}_{unit_suffix}"
 
     @classmethod
@@ -88,7 +94,7 @@ class KamstrupMBusClient:
                 continue
 
             base = cls._norm(rtype)
-            unit_suf = cls._unit_suffix(cls._last_part(unit))
+            unit_suf = cls._unit_suffix(unit)
             key = cls._merge_unit(base, unit_suf)
 
             # Handle duplicate keys, append _2, _3, ...

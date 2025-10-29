@@ -2,6 +2,11 @@
 
 This application reads data from a Kamstrup Multical energy meter using Modbus and exposes it via a REST API.
 
+<p align="left">
+<img src="https://github.com/artop123/kamstrup-restapi/actions/workflows/ci.yml/badge.svg" alt="CI tests">
+<img src="https://github.com/artop123/kamstrup-restapi/actions/workflows/publish.yml/badge.svg" alt="Docker publish">
+</p>
+
 ![Kamstrup Multical](assets/kamstrup.jpg)
 
 ## Requirements
@@ -60,7 +65,7 @@ Example output:
   "power_w": 2430,
   "return_temperature_c": 33.82,
   "temperature_difference_k": 39.21,
-  "timestamp":"2025-10-29T07:00:00.000000",
+  "timestamp": "2025-10-29T07:00:00.000000",
   "volume_flow_m3_h": 0,
   "volume_m3": 0
 }
@@ -113,7 +118,7 @@ rest:
         state_class: measurement
         unit_of_measurement: "°C"
         icon: mdi:thermometer
-        value_template: "{{ value_json['flow_temperature_c'] }}"
+        value_template: "{{ value_json['flow_temperature_c'] | round(2) }}"
         json_attributes:
           - timestamp
 
@@ -123,7 +128,7 @@ rest:
         device_class: temperature
         unit_of_measurement: "°C"
         icon: mdi:thermometer
-        value_template: "{{ value_json['return_temperature_c'] }}"
+        value_template: "{{ value_json['return_temperature_c'] | round(2) }}"
         json_attributes:
           - timestamp
 
@@ -133,7 +138,7 @@ rest:
         state_class: measurement
         unit_of_measurement: "°C"
         icon: mdi:thermometer-chevron-up
-        value_template: "{{ value_json['temperature_difference_k'] }}"
+        value_template: "{{ value_json['temperature_difference_k'] | round(2) }}"
         json_attributes:
           - timestamp
 ```
