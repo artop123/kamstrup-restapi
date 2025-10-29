@@ -2,7 +2,7 @@ import os
 from flask import Flask, jsonify
 from kamstrup_modbus import KamstrupMBusClient
 
-PORT = os.getenv("MBUS_PORT", "")
+PORT = os.getenv("MBUS_PORT", "/dev/ttyUSB0")
 ADDRESS = int(os.getenv("MBUS_ADDRESS", 0))
 BAUD = int(os.getenv("MBUS_BAUD", 9600))
 PARITY = os.getenv("MBUS_PARITY", "E")
@@ -26,7 +26,7 @@ app = Flask(__name__)
 @app.route("/")
 def get_values():
     try:
-        data = client.read_simple(convert_energy_to_kwh=True)
+        data = client.read_simple()
         return jsonify(data), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 503

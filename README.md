@@ -1,6 +1,6 @@
 ﻿# Kamstrup Multical Modbus REST API
 
-This project reads data from a Kamstrup Multical energy meter using Modbus and exposes it via a REST API.
+This app reads data from a Kamstrup Multical energy meter using Modbus and exposes it via a REST API.
 
 ![Kamstrup Multical](assets/kamstrup.jpg)
 
@@ -11,7 +11,7 @@ This project reads data from a Kamstrup Multical energy meter using Modbus and e
 
 ## Docker Compose
 
-The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number.
+The `MBUS_ADDRESS` is the last two or three digits of your Kamstrup serial number. The other settings should work without editing.
 
 ```yaml
 services:
@@ -19,13 +19,10 @@ services:
     image: artop/kamstrup-restapi:latest
     restart: unless-stopped
     devices:
-      - "/dev/ttyUSB1:/dev/ttyUSB1" # map the USB device
-    group_add:
-      - dialout                     # grant access to USB device
+      - "/dev/ttyUSB1:/dev/ttyUSB0" # map the USB device to USB0
     ports:
       - 5000:8080
     environment:
-      - MBUS_PORT=/dev/ttyUSB1
       - MBUS_ADDRESS=0
       - MBUS_BAUD=9600
       - MBUS_PARITY=E
@@ -46,8 +43,8 @@ curl http://localhost:5000
 Expected output:
 ```json
 {
-  "energy_kwh": 1986.0,
-  "energy_kwh_2": 0.0,
+  "energy_wh": 1986000,
+  "energy_wh_2": 0,
   "fabrication_no": 0,
   "flow_temperature_c": 73.03,
   "manufacturer_spec": 0,
@@ -89,7 +86,7 @@ rest:
         device_class: energy
         unit_of_measurement: "MWh"
         icon: mdi:radiator
-        value_template: "{{ value_json['energy_kwh'] / 1000 }}"
+        value_template: "{{ value_json['energy_wh'] / 1000 / 1000 }}"
 
       - name: "kamstrup_temp_in"
         unique_id: "kamstrup_temp_in"
