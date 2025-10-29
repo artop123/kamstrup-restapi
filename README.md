@@ -57,7 +57,7 @@ Example output:
   "manufacturer_spec_2": 0,
   "on_time_seconds": 0,
   "on_time_seconds_2": 0,
-  "power_w": 24300,
+  "power_w": 2430,
   "return_temperature_c": 33.82,
   "temperature_difference_k": 39.21,
   "timestamp":"2025-10-29T07:00:00.000000",
@@ -94,6 +94,16 @@ rest:
         unit_of_measurement: "MWh"
         icon: mdi:radiator
         value_template: "{{ value_json['energy_wh'] / 1000 / 1000 }}"
+        json_attributes:
+          - timestamp
+
+      - name: "kamstrup_power"
+        unique_id: "kamstrup_power"
+        device_class: energy
+        state_class: measurement
+        unit_of_measurement: "W"
+        icon: mdi:lightning-bolt
+        value_template: "{{ value_json['power_w'] }}"
         json_attributes:
           - timestamp
 
